@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.BNESolver" project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/BNESolver.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="214" width="436" x="71" y="106"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.BNESettings" project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/BNESettings.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="160" width="232" x="756" y="134"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="3" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.IOptimizerFactory" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/IOptimizerFactory.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1319" y="215"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="4" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.ShavingStrategy" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/ShavingStrategy.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="179" width="392" x="1116" y="508"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="5" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.AdditiveShavingStrategy" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/AdditiveShavingStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="222" width="344" x="956" y="874"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.MultiplicativeShavingStrategy" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/MultiplicativeShavingStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="224" width="374" x="1317" y="873"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.UtilityEstimator" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/UtilityEstimator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="212" width="454" x="50" y="656"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.UtilityEstimatorFactory" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/UtilityEstimatorFactory.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="210" width="410" x="330" y="902"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="9" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.Optimizable" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/Optimizable.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="276" y="13"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="10" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.IUtilityComputationEngineFactory" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/IUtilityComputationEngineFactory.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="88" width="480" x="-508" y="400"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="11" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.MTUtilityComputationEngineFactory" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/MTUtilityComputationEngineFactory.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="106" width="279" x="-411" y="559"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.MultistartDecorator" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/MultistartDecorator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-274" y="-124"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.SimpleMultistartDecorator" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/SimpleMultistartDecorator.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="185" width="293" x="-417" y="3"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="14" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.IUtilityComputationEngine" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/IUtilityComputationEngine.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-276" y="1127"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="15" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.PatternSearch1D" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/PatternSearch1D.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="173" width="222" x="-385" y="-417"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="16" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.IOptimizer" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/IOptimizer.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="651" y="-396"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="17" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.MTUtilityComputationEngine" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/MTUtilityComputationEngine.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-281" y="1348"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.MTUtilityComputationEngine.SamplingWorker" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/MTUtilityComputationEngine.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="276" y="1349"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.AllDifferentBinSortingStrategy" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/AllDifferentBinSortingStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1603" y="-53"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="20" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.IBinSortingStrategy" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/IBinSortingStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1667" y="-212"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="21" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.DoubleAuctionBinSortingStrategy" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/DoubleAuctionBinSortingStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1994" y="-54"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.LLGBinSortingStrategy" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/LLGBinSortingStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2437" y="-54"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.QuantileBinSortingStrategy" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/QuantileBinSortingStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2110" y="-404"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.QuantileBinSortingStrategy.TypeComparator" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/QuantileBinSortingStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2298" y="-275"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="ch.uzh.ifi.MechanismDesignToolsNEW.ReverseAuctionBinSortingStrategy" 
+    project="MechanismDesignToolsNEW" 
+    file="/MechanismDesignToolsNEW/src/main/java/ch/uzh/ifi/MechanismDesignToolsNEW/ReverseAuctionBinSortingStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2750" y="-204"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <realization id="26">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <association id="27">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="28" name="_shavingStrategies"/>      
+      <multiplicity id="29" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="30">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="31" name="_component"/>      
+      <multiplicity id="32" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="33">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="16"/>  
+  </realization>  
+  <association id="34">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="35" name="_optimizerFactory"/>      
+      <multiplicity id="36" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="37">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="38" name="_obj"/>      
+      <multiplicity id="39" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="40">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="41" name="_utilityEstimator"/>      
+      <multiplicity id="42" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="43">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="44" name="_utilityComputationEngineFactory"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="46">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <association id="47">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="48" name="_shavingStrategies"/>      
+      <multiplicity id="49" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="50">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="20"/>  
+  </realization>  
+  <nesting id="51">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="18"/>  
+  </nesting>  
+  <realization id="52">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="16"/>  
+  </realization>  
+  <realization id="53">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="20"/>  
+  </realization>  
+  <realization id="54">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <nesting id="55">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="24"/>  
+  </nesting>  
+  <generalization id="56">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <realization id="57">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="20"/>  
+  </realization>  
+  <realization id="58">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <association id="59">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="60" name="_utilityEstimatorFactory"/>      
+      <multiplicity id="61" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="62">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="20"/>  
+  </realization>  
+  <realization id="63">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="20"/>  
+  </realization>  
+  <association id="64">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="65" name="_settings"/>      
+      <multiplicity id="66" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="67">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <association id="68">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="69" name="_shavingStrategies"/>      
+      <multiplicity id="70" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="71">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="72" name="_obj"/>      
+      <multiplicity id="73" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="74">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="75" name="_binSortingStrategy"/>      
+      <multiplicity id="76" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
