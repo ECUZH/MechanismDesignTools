@@ -9,8 +9,6 @@ import java.util.List;
 
 //import mpi.MPI;
 
-
-
 import ch.uzh.ifi.MechanismDesignPrimitives.FocusedBombingStrategy;
 import ch.uzh.ifi.MechanismDesignPrimitives.IBombingStrategy;
 import ch.uzh.ifi.MechanismDesignPrimitives.JointProbabilityMass;
