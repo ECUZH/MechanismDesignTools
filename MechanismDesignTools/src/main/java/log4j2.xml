@@ -18,6 +18,9 @@
     <Logger name="ch.uzh.ifi.Mechanisms.ProbabilisticCAXOR" level="ERROR" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
+    <Logger name="ch.uzh.ifi.Mechanisms.CAXOR" level="ERROR" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
     <Logger name="ch.uzh.ifi.Mechanisms.ECCCoreLLGPayments" level="ERROR" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
