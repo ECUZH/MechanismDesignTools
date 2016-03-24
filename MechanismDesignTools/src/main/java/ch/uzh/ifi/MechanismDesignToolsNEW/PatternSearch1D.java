@@ -4,36 +4,30 @@ import java.util.Random;
 
 import org.apache.logging.log4j.*;
 
-/*
+import ch.uzh.ifi.Mechanisms.ProbabilisticCAXOR;
+
+/**
  * The class implements a 1-dimensional pattern search method with a symmetrical linear pattern.
  * The parameter space is an interval (0,1).
  * There're no requirements on the existence of the gradient of the objective function.
+ * @author Dmitry Moor
  */
 public class PatternSearch1D implements IOptimizer
 {
-	public enum Direction {
+	private static final Logger _logger = LogManager.getLogger(PatternSearch1D.class);
+	
+	public enum Direction 
+	{
 		NO_DIRECTION, LEFT, RIGHT
 	}
-	/*
+	
+	/**
 	 * A constructor.
 	 * @param obj - an Optimizable object which should implement the ::objective(...) interface.
 	 * @param iParams - integer parameters which should be passed to the Optimizable object for its configuration.
-	 * @param nMultistartIterations - the number of multistart iterations for global optimization.
 	 */
-	public PatternSearch1D( Optimizable obj, int[] iParams/*, int nMultistartIterations*/)
+	public PatternSearch1D( Optimizable obj, int[] iParams)
 	{
-		//Logger.getRootLogger().getLoggerRepository().resetConfiguration();		
-		//_logger = LogManager.getLogger(this.getClass());
-		
-		//ConsoleAppender console = new ConsoleAppender();
-		//String PATTERN = "%d [%p|%c|%C{1}] %m%n";
-		//console.setLayout(new PatternLayout(PATTERN)); 
-		//console.setThreshold(Level.DEBUG);
-		//console.activateOptions();
-		
-		//_logger.getRootLogger().addAppender(console);
-		//_logLevel = Level.OFF;
-		//_logger.setLevel(_logLevel);						//set Level.DEBUG for debugging and Level.ERROR for release
 		_binToTrace = 0;
 		
 		_obj = obj;
@@ -45,7 +39,7 @@ public class PatternSearch1D implements IOptimizer
 		MAX_LOCAL_ITERATIONS = (int)(2*(_upperBound - _lowerBound) / _step);
 	}
 	
-	/*
+	/**
 	 * The method performs optimization and returns the solution.
 	 * @return the solution for the optimization problem.
 	 */
@@ -70,8 +64,8 @@ public class PatternSearch1D implements IOptimizer
 
 		params[params.length-1] = _x;
 		
-		f0 = _obj.objective(params).getMean();
-		//if(_integerParams[0] == _binToTrace)	{_logger.setLevel(_logLevel); _logger.info("\n x0="+_x + " f0="+f0);}
+		f0 = _obj.objective(params).getMean();					
+		_logger.debug("x0="+_x + " f0="+f0);
 		
 		while( counter < MAX_LOCAL_ITERATIONS)
 		{
@@ -95,8 +89,8 @@ public class PatternSearch1D implements IOptimizer
 					break;
 				
 				params[params.length-1] = xL;
-				fL = _obj.objective(params).getMean();
-				//System.out.println("\n x0="+ xL + " f0="+fL);
+				fL = _obj.objective(params).getMean();			
+				_logger.debug("xL="+ xL + " fL="+fL);
 				
 				if( fL > f0 )
 				{
@@ -104,16 +98,14 @@ public class PatternSearch1D implements IOptimizer
 						break;
 							
 					_x = xL;
-					f0 = fL;
-					
-					//if(_integerParams[0] == _binToTrace)	{_logger.setLevel(_logLevel); _logger.debug("xL="+ xL + " fL="+fL + " keep going left ");}
+					f0 = fL;									
+					_logger.debug("xL="+ xL + " fL="+fL + " keep going left ");
 				}
 				else
 				{
 					curDirection = Direction.NO_DIRECTION;
 					_step /= _stepFactor;
-					
-					//if(_integerParams[0] == _binToTrace) 	{_logger.setLevel(_logLevel); _logger.debug("LEFT: decrease step ");}
+					_logger.debug("LEFT: decrease step ");
 				}
 				counter++;
 				continue;
@@ -125,7 +117,7 @@ public class PatternSearch1D implements IOptimizer
 				
 				params[params.length-1] = xR;
 				fR = _obj.objective(params).getMean();
-				//System.out.println("\n x0="+ xR + " f0="+fR);
+				_logger.debug("xR="+ xR + " fR="+fR);
 								
 				if(fR > f0)
 				{
@@ -134,15 +126,13 @@ public class PatternSearch1D implements IOptimizer
 					
 					_x = xR;
 					f0 = fR;
-					
-					//if(_integerParams[0] == _binToTrace)	{_logger.setLevel(_logLevel); _logger.debug("xR="+ xR + " fR="+fR + " keep going right ");}
+					_logger.debug("xR="+ xR + " fR="+fR + " keep going right ");
 				}
 				else
 				{
 					curDirection = Direction.NO_DIRECTION;
 					_step /= _stepFactor;
-					
-					//if(_integerParams[0] == _binToTrace) 	{_logger.setLevel(_logLevel); _logger.debug("RIGHT: decrease step ");}
+					_logger.debug("RIGHT: decrease step ");
 				}
 				counter++;
 				continue;
@@ -151,14 +141,13 @@ public class PatternSearch1D implements IOptimizer
 			{	
 				params[params.length-1] = xL;
 				fL = _obj.objective(params).getMean();
-				//System.out.println("\n x0="+xL + " f0="+fL);
+				_logger.debug("xL="+xL + " fL="+fL);
 				
 				params[params.length-1] = xR;
 				fR = _obj.objective(params).getMean();
-				//System.out.println("\n x0="+ xR + " f0="+fR);
-
+				_logger.debug("xR="+ xR + " fR="+fR);
 				
-				//if(_integerParams[0] == _binToTrace)		{_logger.setLevel(_logLevel); _logger.debug("xL="+ xL + " fL="+fL + " xR="+xR+" fR="+fR);}
+				_logger.debug("xL="+ xL + " fL="+fL + " xR="+xR+" fR="+fR);
 				
 				if( fL > f0 )
 				{
@@ -168,8 +157,7 @@ public class PatternSearch1D implements IOptimizer
 					_x = xL;
 					f0 = fL;
 					curDirection = Direction.LEFT;
-					
-					//if(_integerParams[0] == _binToTrace)	{_logger.setLevel(_logLevel); _logger.debug("Go left");}
+					_logger.debug("Go left");
 				}
 				else if(fR > f0)
 				{
@@ -179,14 +167,12 @@ public class PatternSearch1D implements IOptimizer
 					_x = xR;
 					f0 = fR;
 					curDirection = Direction.RIGHT;
-					
-					//if(_integerParams[0] == _binToTrace)	{_logger.setLevel(_logLevel); _logger.debug("Go right");}
+					_logger.debug("Go right");
 				}
 				else
 				{
 					_step /= _stepFactor;
-					
-					//if(_integerParams[0] == _binToTrace)	{_logger.setLevel(_logLevel); _logger.debug("Decrease step");}
+					_logger.debug("Decrease step");
 				}
 			} 
 			catch (Exception e) 
@@ -196,16 +182,17 @@ public class PatternSearch1D implements IOptimizer
 			counter++;
 		}
 		
-		//if( counter == MAX_LOCAL_ITERATIONS) 				{System.out.println("MAX_LOCAL_ITERATIONS exceeded.");}
+		_logger.debug("MAX_LOCAL_ITERATIONS exceeded.");
+		
 		double[] x = {_x};
 		solution = new OptimizationSolution( x, f0);
-		//System.out.println("OPT: f(" + x[0] +")="+f0 );
+		_logger.debug("OPT: f(" + x[0] +")="+f0 );
 		return solution;
 	}
 	
-	/*
+	/**
 	 * (non-Javadoc)
-	 * @see Tools.IOptimizer#setStartPoint(double[])
+	 * @see ch.uzh.ifi.MechanismDesignToolsNEW.IOptimizer#setStartPoint(double[])
 	 */
 	@Override
 	public void setStartPoint(double[] startPoint) 
@@ -216,9 +203,9 @@ public class PatternSearch1D implements IOptimizer
 		_x = startPoint[0];
 	}
 	
-	/*
+	/**
 	 * (non-Javadoc)
-	 * @see Tools.IOptimizer#setSearchSpace(double[], double[])
+	 * @see ch.uzh.ifi.MechanismDesignToolsNEW.IOptimizer#setSearchSpace(double[], double[])
 	 */
 	@Override
 	public void setSearchSpace(double[] lowerBounds, double[] upperBounds)
@@ -227,21 +214,18 @@ public class PatternSearch1D implements IOptimizer
 		_upperBound = upperBounds[0];
 	}
 	
-	private double _x;
-	private double _step;
-	private double _stepFactor;
+	private double _x;									//Current point in the search space
+	private double _step;								//Initial step of the pattern search procedure
+	private double _stepFactor;							//Step decrease factor
 	
-	private Optimizable _obj;
-	private int[] _integerParams;
+	private Optimizable _obj;							//Objective function
+	private int[] _integerParams;						//Integer parameters used to configure the objective
 	
-	private double _lowerBound;
-	private double _upperBound;
+	private double _lowerBound;							//Lower bound for the search region
+	private double _upperBound;							//Upper bound for the search region
 	
-	private int MAX_LOCAL_ITERATIONS = 15;
-	private double TOL = 1e-9;//3;
+	private int MAX_LOCAL_ITERATIONS = 15;				//Maximum number of interations
+	private double TOL = 1e-9;//3;						//Tolerance level
 	private double EPS = 1e-10;
-	
-	//private Logger _logger;
-	//private Level _logLevel;
 	private int _binToTrace = 0;
 }
