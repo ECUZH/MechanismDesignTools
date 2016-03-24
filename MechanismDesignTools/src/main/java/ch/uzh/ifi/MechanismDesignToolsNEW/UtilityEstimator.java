@@ -14,6 +14,7 @@ import ch.uzh.ifi.Mechanisms.AgentTypeException;
 import ch.uzh.ifi.Mechanisms.Auction;
 import ch.uzh.ifi.Mechanisms.DoubleSidedMarket;
 import ch.uzh.ifi.Mechanisms.PaymentException;
+import ch.uzh.ifi.Mechanisms.ProbabilisticCAXOR;
 import ch.uzh.ifi.Mechanisms.ProbabilisticReverseCA;
 import ch.uzh.ifi.Mechanisms.IMechanismFactory;
 import ch.uzh.ifi.Mechanisms.ShavingException;
@@ -211,17 +212,21 @@ public class UtilityEstimator
 						{
 							int bidderIdx = G.getAllocation().getBiddersInvolved(k).indexOf( _v.getAgentId() );
 							double trueAllocatedValue = 0.;
+							double reportedValue = 0.;
 							
 							if( G.isReverse() )
 								trueAllocatedValue = _shavingStrategies[0].getUnShadedValue(-1 * G.getAllocation().getBiddersAllocatedValue(0, bidderIdx), _s[0], false);	//true allocated cost
 							else
 							{
 								int itsAllocatedBundle = G.getAllocation().getAllocatedBundlesOfTrade(k).get(bidderIdx);
-								double reportedValue = _v.getAtom(itsAllocatedBundle).getValue();
+								reportedValue = _v.getAtom(itsAllocatedBundle).getValue();
 								trueAllocatedValue = _shavingStrategies[0].getUnShadedValue(reportedValue, _s[0], true);
 								
-								double realizedRV = ((AllocationEC)(G.getAllocation())).getRealizedRV(k, bidderIdx);
-								trueAllocatedValue *= realizedRV;
+								if(G.getClass().getSimpleName().equals( ProbabilisticCAXOR.class.getSimpleName() ))
+								{
+									double realizedRV = ((AllocationEC)(G.getAllocation())).getRealizedRV(k, bidderIdx);
+									trueAllocatedValue *= realizedRV;
+								}
 							}
 							double payment = 0.;
 							try
@@ -315,8 +320,9 @@ public class UtilityEstimator
 		return _shaves;
 	}
 	
-	/*
-	 * 
+	/**
+	 * The method sets up shaving factors
+	 * @param shaves
 	 */
 	public void setShaves(List< List<Double> > shaves)
 	{
@@ -350,6 +356,7 @@ public class UtilityEstimator
 	 */
 	private List<Type> constructSampleTypes( Type v, double[] s, int iterNumber)
 	{
+		_logger.debug("-> constructSampleTypes(" + (v != null ? v.toString() : null) + ", " + s[0]+ ", "+ iterNumber+")");
 		List<Type> types = new ArrayList<Type>();
 		
 		//Generate types and setup strategies
@@ -373,19 +380,17 @@ public class UtilityEstimator
 				{
 					//If agent's type is present but the agent is not strategic (=> not in any of bins), then use its type and do not 
 					//change its strategy. E.g., in a one-sided reverse CA when buyer's type is needed only in order to compute the SW of plans  
-					ct = _domainGenerator.generateBid( (iterNumber+1) * (j+1) * 2015, _agentsTypes.get(j) );
+					ct = _domainGenerator.generateBid( (iterNumber+1) * (j+1) * 2015, _agentsTypes.get(j).getAgentId() );
 					types.add(ct);
 					continue;
 				}
 			}
 			
 			//2. Generate a new type
-			ct = _domainGenerator.generateBid( (iterNumber+1) * (j+1) * 2015, _agentsTypes.get(j) );
+			ct = _domainGenerator.generateBid( (iterNumber+1) * (j+1) * 2015, _agentsTypes.get(j).getAgentId() );
 			
-			if(ct.getNumberOfAtoms() == 0)
-				_logger.warn("Empty bid");
-			else
-				_logger.debug("ct: " + ct.toString());
+			if(ct.getNumberOfAtoms() == 0)	_logger.warn("Empty bid");
+			else							_logger.debug("Generated type: " + ct.toString());
 			
 			//3. Setup strategies for all agents
 			List<Double> shadingFactor = new ArrayList<Double>();
@@ -427,8 +432,10 @@ public class UtilityEstimator
 					ct.setTypeComponent(atomIdx, AtomicBid.Value, 1e-6);
 			}
 			
+			_logger.debug("The type after shading: " + ct.toString());
 			types.add( ct );
 		}
+		_logger.debug("<- constructSampleTypes(...)");
 		return types;
 	}
 	
