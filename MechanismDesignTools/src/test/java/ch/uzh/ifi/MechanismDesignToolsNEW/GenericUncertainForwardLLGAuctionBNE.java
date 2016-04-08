@@ -177,7 +177,7 @@ public class GenericUncertainForwardLLGAuctionBNE
 		{
 			solvers[i] = new IloCplex();
 			llgDomain[i] = new DomainGeneratorLLG();
-			CAXORFactory[i] = new CAXORFactory(numberOfBuyers, numberOfItems, paymentRule, costsRange, grid, numberOfJpmfSamples, jpmf, solvers[i]);
+			CAXORFactory[i] = new CAXORFactory(numberOfBuyers, numberOfItems, paymentRule, costsRange, solvers[i]);
 		}
 		
 		IBinSortingStrategy binSortingStrategy;

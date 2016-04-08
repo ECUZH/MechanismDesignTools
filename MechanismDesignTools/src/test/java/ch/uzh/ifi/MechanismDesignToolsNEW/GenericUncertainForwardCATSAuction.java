@@ -10,6 +10,7 @@ import java.util.List;
 
 
 
+
 import org.apache.logging.log4j.*;
 
 import ch.uzh.ifi.MechanismDesignPrimitives.FocusedBombingStrategy;
@@ -20,17 +21,18 @@ import ch.uzh.ifi.MechanismDesignPrimitives.CombinatorialType;
 import ch.uzh.ifi.MechanismDesignPrimitives.IDomainGenerator;
 import ch.uzh.ifi.MechanismDesignPrimitives.Type;
 import ch.uzh.ifi.DomainGenerators.GridGenerator;
+import ch.uzh.ifi.DomainGenerators.SpacialDomainGenerationException;
 import ch.uzh.ifi.GraphAlgorithms.Graph;
 import ch.uzh.ifi.Mechanisms.CAXOR;
 import ch.uzh.ifi.Mechanisms.CAXORFactory;
-import ch.uzh.ifi.DomainGenerators.DomainGeneratorCATS;
+import ch.uzh.ifi.DomainGenerators.DomainGeneratorSpatial;
 import ch.uzh.ifi.Mechanisms.IMechanismFactory;
 import ch.uzh.ifi.Mechanisms.ProbabilisticCAXOR;
 import ch.uzh.ifi.Mechanisms.ProbabilisticCAXORFactory;
 
 public class GenericUncertainForwardCATSAuction 
 {
-	public static void main(String[] args) 
+	public static void main(String[] args) throws SpacialDomainGenerationException 
 	{
 		
 		int numberOfArguments = 8;
@@ -144,7 +146,7 @@ public class GenericUncertainForwardCATSAuction
 		try
 		{
 			IMechanismFactory[] CAXORFactories = new CAXORFactory[numberOfThreads];
-			IDomainGenerator[] catsDomainGenerators = new DomainGeneratorCATS[numberOfThreads];
+			IDomainGenerator[] catsDomainGenerators = new DomainGeneratorSpatial[numberOfThreads];
 			IloCplex[] solvers = new IloCplex[numberOfThreads];
 			JointProbabilityMass[] jpmfs = new JointProbabilityMass[numberOfThreads];
 			
@@ -153,8 +155,8 @@ public class GenericUncertainForwardCATSAuction
 				solvers[i] = new IloCplex();
 				solvers[i].setParam(IloCplex.Param.RootAlgorithm.AuxRootThreads, -1);
 				jpmfs[i] = jpmf.copyIt();
-				CAXORFactories[i] = new CAXORFactory(numberOfBuyers, numberOfItems, paymentRule, costsRange, grid, numberOfJpmfSamples, jpmfs[i], solvers[i]);
-				catsDomainGenerators[i] = new DomainGeneratorCATS(numberOfItems, numberOfAtoms, grid);
+				CAXORFactories[i] = new CAXORFactory(numberOfBuyers, numberOfItems, paymentRule, costsRange,  solvers[i]);
+				catsDomainGenerators[i] = new DomainGeneratorSpatial(numberOfItems);
 			}
 			
 			IBinSortingStrategy binSortingStrategy;
