@@ -139,7 +139,10 @@ public class UtilityEstimator
 				
 			try
 			{
+				long t1 = System.currentTimeMillis();
 				G.solveIt();
+				long t2 = System.currentTimeMillis();
+				//System.out.println(t2-t1);
 			}
 			catch(PaymentException e1)
 			{
