@@ -3,13 +3,11 @@ package ch.uzh.ifi.MechanismDesignToolsNEW;
 import ilog.concert.IloException;
 import ilog.cplex.IloCplex;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.logging.log4j.*;
-import org.apache.logging.log4j.core.appender.ConsoleAppender;
-
-
 
 //import mpi.MPI;
 import ch.uzh.ifi.MechanismDesignPrimitives.FocusedBombingStrategy;
@@ -20,32 +18,21 @@ import ch.uzh.ifi.MechanismDesignPrimitives.AtomicBid;
 import ch.uzh.ifi.MechanismDesignPrimitives.CombinatorialType;
 import ch.uzh.ifi.MechanismDesignPrimitives.IDomainGenerator;
 import ch.uzh.ifi.DomainGenerators.GridGenerator;
-import ch.uzh.ifi.DomainGenerators.DomainGeneratorCATS;
+import ch.uzh.ifi.DomainGenerators.DomainGeneratorSpatial;
+import ch.uzh.ifi.DomainGenerators.SpacialDomainGenerationException;
 import ch.uzh.ifi.GraphAlgorithms.Graph;
 import ch.uzh.ifi.Mechanisms.IMechanismFactory;
 import ch.uzh.ifi.Mechanisms.ProbabilisticCAXOR;
 import ch.uzh.ifi.Mechanisms.ProbabilisticCAXORFactory;
 
 
-public class GenericProbabilisticForwardCATSAuctionBNE {
+public class GenericProbabilisticForwardCATSAuctionBNE 
+{
 
-	public static void main(String[] args) 
-	{
-		//org.apache.log4j.BasicConfigurator.configure();
-		//Logger.getRootLogger().getLoggerRepository().resetConfiguration();
-		//Logger logger = LogManager.getLogger(GenericProbabilisticReverseAuctionBNE.class);
-		//ConsoleAppender console = new ConsoleAppender();
-		//String PATTERN = "%d [%p|%c|%C{1}] %m%n";
-		//console.setLayout(new PatternLayout(PATTERN)); 
-		//console.setThreshold(Level.INFO);
-		//console.activateOptions();
-		//logger.getRootLogger().addAppender(console);
-		
-		//logger.setLevel(Level.OFF);
-		//Logger.getRootLogger().removeAllAppenders();
-		//Logger.getRootLogger().addAppender(new NullAppender());
-		//logger.info("Number of args: "+args.length);
-		
+	private static final Logger _logger = LogManager.getLogger(GenericProbabilisticForwardCATSAuctionBNE.class);
+	
+	public static void main(String[] args) throws SpacialDomainGenerationException 
+	{	
 		int numberOfArguments = 8;
 		int offset = 0;
 		if( args.length == numberOfArguments)
@@ -57,7 +44,7 @@ public class GenericProbabilisticForwardCATSAuctionBNE {
 			
 		//1. Parse command line arguments		
 		int numberOfBins   = Integer.parseInt(args[0 + offset]);		if( numberOfBins    <= 0)	throw new RuntimeException("The number of bins should be posititve");
-		int numberOfBidders= Integer.parseInt(args[1 + offset]);		if( numberOfBidders <= 0) 	throw new RuntimeException("The number of bidders should be positive: "+ numberOfBidders);
+		String problemSize = args[1 + offset]; 							if( ! (problemSize.equals("big") || problemSize.equals("small")) )	throw new RuntimeException("Wrong problem size");
 		int numberOfSamples= Integer.parseInt(args[2 + offset]);		if( numberOfSamples <= 0) 	throw new RuntimeException("The number of samples should be positive: "+ numberOfSamples);
 		int numberOfThreads    = Integer.parseInt(args[3 + offset]);	if( numberOfThreads  < 1 )	throw new RuntimeException("The number of threads should be at least 1");
 		String paymentRule	   = args[4 + offset];						if( !(paymentRule.equals("EC-VCG_LLG") || paymentRule.equals("EC-VCG") || 
@@ -67,21 +54,19 @@ public class GenericProbabilisticForwardCATSAuctionBNE {
 		String optimizationEngine=args[6+ offset];						if( !(optimizationEngine.equals("stochastic") || optimizationEngine.equals("deterministic") ) ) throw new RuntimeException("Wrong local optimization engine specified: " + optimizationEngine);
 		int loadState 		   = Integer.parseInt(args[7 + offset]);	if( loadState != 0 && loadState != 1 )  throw new RuntimeException("Wrong load state");
 				
-		int numberOfBuyers = numberOfBidders;
-		int numberOfRows = 3;
-		int numberOfColumns = 3;
+		int numberOfBuyers = problemSize.equals("small") ? 5 : 8;
+		int numberOfRows = problemSize.equals("small") ? 3 : 4;
+		int numberOfColumns = problemSize.equals("small") ? 3 : 4;
 		int numberOfItems = numberOfRows * numberOfColumns;
-		int numberOfAtoms = 1;
 		int numberOfJpmfSamples = 1000;
 		double costsUpperLimit = 5.;
 		boolean isMultiplicativeShading = true;
-		List<Double> costsRange = new LinkedList<Double>();
-		for(int i = 0 ; i < numberOfItems; ++i)
-		{
-			costsRange.add(costsUpperLimit);
-		}
 		
-		List<Integer> items = new LinkedList<Integer>();
+		List<Double> costsRange = new ArrayList<Double>();
+		for(int i = 0 ; i < numberOfItems; ++i)
+			costsRange.add(costsUpperLimit);
+		
+		List<Integer> items = new ArrayList<Integer>();
 		for(int i = 0; i < numberOfItems; ++i)
 			items.add(i+1);													//Goods in the auction
 		
@@ -89,7 +74,7 @@ public class GenericProbabilisticForwardCATSAuctionBNE {
 		List<Type> bids = new LinkedList<Type>();
 		for(int i = 0; i < numberOfBuyers; ++i)
 		{
-			List<Integer> bundle = new LinkedList<Integer>();
+			List<Integer> bundle = new ArrayList<Integer>();
 			bundle.add( items.get(0) );
 			double marginalValue = Math.random();
 			AtomicBid atom = new AtomicBid(i+1, bundle, marginalValue);
@@ -106,15 +91,15 @@ public class GenericProbabilisticForwardCATSAuctionBNE {
 		
 		double primaryReductionCoef = 0.3;
 		double secondaryReductionCoef = 0.2;
-		JointProbabilityMass jpmf = new JointProbabilityMass( grid);
+		JointProbabilityMass jpmf = new JointProbabilityMass( grid );
 		jpmf.setNumberOfSamples( numberOfJpmfSamples );
 		jpmf.setNumberOfBombsToThrow(1);
 		
 		IBombingStrategy b = new FocusedBombingStrategy(grid, 1., primaryReductionCoef, secondaryReductionCoef);
-		List<IBombingStrategy> bombs = new LinkedList<IBombingStrategy>();
+		List<IBombingStrategy> bombs = new ArrayList<IBombingStrategy>();
 		bombs.add(b);
 		
-		List<Double> pd = new LinkedList<Double>();
+		List<Double> pd = new ArrayList<Double>();
 		pd.add(1.);
 		
 		jpmf.setBombs(bombs, pd);
@@ -160,7 +145,7 @@ public class GenericProbabilisticForwardCATSAuctionBNE {
 		try
 		{
 			IMechanismFactory[] probabilisticCAXORFactories = new ProbabilisticCAXORFactory[numberOfThreads];
-			IDomainGenerator[] catsDomainGenerators = new DomainGeneratorCATS[numberOfThreads];
+			IDomainGenerator[] catsDomainGenerators = new DomainGeneratorSpatial[numberOfThreads];
 			IloCplex[] solvers = new IloCplex[numberOfThreads];
 			JointProbabilityMass[] jpmfs = new JointProbabilityMass[numberOfThreads];
 			
@@ -171,17 +156,17 @@ public class GenericProbabilisticForwardCATSAuctionBNE {
 				solvers[i].setParam(IloCplex.Param.Threads, 1);
 				jpmfs[i] = jpmf.copyIt();
 				probabilisticCAXORFactories[i] = new ProbabilisticCAXORFactory(numberOfBuyers, numberOfItems, paymentRule, costsRange, grid, numberOfJpmfSamples, jpmfs[i], solvers[i]);
-				catsDomainGenerators[i] = new DomainGeneratorCATS(numberOfItems, numberOfAtoms, grid);
+				catsDomainGenerators[i] = new DomainGeneratorSpatial( numberOfItems, problemSize.equals("small") ? 0.78 : 0.85 );
 			}
 			
 			IBinSortingStrategy binSortingStrategy;
 			binSortingStrategy = new SingleBinSortingStrategy();
 		
-			//logger.info("Random number of tuples, #Buyers= "+ numberOfBuyers);
-			//logger.info(paymentRule + " + " + "BNESolver(market, bids, "+settings.getNumberOfBins()+", "+ settings.getNumberOfGridPoints()+
-			//		    ", "+numberOfSamples+", strategies, " + numberOfThreads +" ), eps=" + settings.getEpsilon()+ " (use " + utilityEngine + ")");
-			//logger.info("Costs upper limits: " + costsRange.toString());
-			//logger.info( isMultiplicativeShading ? "Muliplicative shading" : "Additive shading");
+			_logger.info("Random number of tuples, #Buyers= "+ numberOfBuyers);
+			_logger.info(paymentRule + " + " + "BNESolver(market, bids, "+settings.getNumberOfBins()+", "+ settings.getNumberOfGridPoints()+
+					    ", "+numberOfSamples+", strategies, " + numberOfThreads +" ), eps=" + settings.getEpsilon()+ " (use " + utilityEngine + ")");
+			_logger.info("Costs upper limits: " + costsRange.toString());
+			_logger.info( isMultiplicativeShading ? "Muliplicative shading" : "Additive shading");
 		
 			BNESolver bne = new BNESolver(market, bids, strategies, utilityComputationEngineFactory, probabilisticCAXORFactories, catsDomainGenerators, binSortingStrategy, settings, solvers );
 			bne.setPrecision( settings.getEpsilon() );
@@ -189,13 +174,13 @@ public class GenericProbabilisticForwardCATSAuctionBNE {
 		
 			if(loadState == 1)
 			{
-				//logger.info("Current state loaded from a file...");
+				_logger.info("Current state loaded from a file...");
 				bne.loadState();
 			}
 		
 			//6. Solve it
 			bne.solveIt();
-			//logger.info(bne.toString());
+			_logger.info(bne.toString());
 			
 			for(int i = 0; i < numberOfThreads; ++i)
 				solvers[i].end();
