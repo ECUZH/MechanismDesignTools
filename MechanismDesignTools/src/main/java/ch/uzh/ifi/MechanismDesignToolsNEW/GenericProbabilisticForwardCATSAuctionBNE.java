@@ -26,14 +26,18 @@ import ch.uzh.ifi.Mechanisms.ProbabilisticCAXOR;
 import ch.uzh.ifi.Mechanisms.ProbabilisticCAXORFactory;
 
 
-public class GenericProbabilisticForwardCATSAuctionBNE 
+/**
+ * The class provides a generic interface for running BNE approximation for the ProbabilisticCAXOR mechanism. 
+ * @author Dmitry Moor
+ */
+public class GenericProbabilisticForwardCATSAuctionBNE
 {
 
 	private static final Logger _logger = LogManager.getLogger(GenericProbabilisticForwardCATSAuctionBNE.class);
 	
 	public static void main(String[] args) throws SpacialDomainGenerationException 
 	{
-		int numberOfArguments = 9;
+		int numberOfArguments = 10;
 		int offset = 0;
 		if( args.length == numberOfArguments)
 			offset = 0;
@@ -45,15 +49,16 @@ public class GenericProbabilisticForwardCATSAuctionBNE
 		//1. Parse command line arguments		
 		int numberOfBins   = Integer.parseInt(args[0 + offset]);		if( numberOfBins    <= 0)	throw new RuntimeException("The number of bins should be posititve");
 		String problemSize = args[1 + offset]; 							if( ! (problemSize.equals("big") || problemSize.equals("small")) )	throw new RuntimeException("Wrong problem size");
-		int costsLimit = Integer.parseInt(args[2 + offset]);			if( costsLimit < 0 ) 		throw new RuntimeException("Negative costs");
-		int numberOfSamples= Integer.parseInt(args[3 + offset]);		if( numberOfSamples <= 0) 	throw new RuntimeException("The number of samples should be positive: "+ numberOfSamples);
-		int numberOfThreads    = Integer.parseInt(args[4 + offset]);	if( numberOfThreads  < 1 )	throw new RuntimeException("The number of threads should be at least 1");
-		String paymentRule	   = args[5 + offset];						if( !(paymentRule.equals("EC-VCG_LLG") || paymentRule.equals("EC-VCG") || 
+		String uncertaintyLevel = args[2 + offset];						if( ! (uncertaintyLevel.equals("low") || uncertaintyLevel.equals("high") || uncertaintyLevel.equals("no")) )  throw new RuntimeException("Wrong uncertianty level specified");
+		int costsLimit = Integer.parseInt(args[3 + offset]);			if( costsLimit < 0 ) 		throw new RuntimeException("Negative costs");
+		int numberOfSamples= Integer.parseInt(args[4 + offset]);		if( numberOfSamples <= 0) 	throw new RuntimeException("The number of samples should be positive: "+ numberOfSamples);
+		int numberOfThreads    = Integer.parseInt(args[5 + offset]);	if( numberOfThreads  < 1 )	throw new RuntimeException("The number of threads should be at least 1");
+		String paymentRule	   = args[6 + offset];						if( !(paymentRule.equals("EC-VCG_LLG") || paymentRule.equals("EC-VCG") || 
 																			  paymentRule.equals("EC-CORE")    || paymentRule.equals("EC-CORE_LLG") ||
 																			  paymentRule.equals("Exp-CORE")   || paymentRule.equals("ECC-CORE")   || paymentRule.equals("ECR-CORE") ) ) throw new RuntimeException("Wrong payment rule specified: " + paymentRule);
-		String utilityEngine   = args[6 + offset];						if( !(utilityEngine.equals("MT") || utilityEngine.equals("MPI") ) ) throw new RuntimeException("Wrong utility computation engine specified: " + utilityEngine);
-		String optimizationEngine=args[7+ offset];						if( !(optimizationEngine.equals("stochastic") || optimizationEngine.equals("deterministic") ) ) throw new RuntimeException("Wrong local optimization engine specified: " + optimizationEngine);
-		int loadState 		   = Integer.parseInt(args[8 + offset]);	if( loadState != 0 && loadState != 1 )  throw new RuntimeException("Wrong load state");
+		String utilityEngine   = args[7 + offset];						if( !(utilityEngine.equals("MT") || utilityEngine.equals("MPI") ) ) throw new RuntimeException("Wrong utility computation engine specified: " + utilityEngine);
+		String optimizationEngine=args[8+ offset];						if( !(optimizationEngine.equals("stochastic") || optimizationEngine.equals("deterministic") ) ) throw new RuntimeException("Wrong local optimization engine specified: " + optimizationEngine);
+		int loadState 		   = Integer.parseInt(args[9 + offset]);	if( loadState != 0 && loadState != 1 )  throw new RuntimeException("Wrong load state");
 				
 		int numberOfBuyers = problemSize.equals("small") ? 5 : 8;
 		int numberOfRows = problemSize.equals("small") ? 3 : 4;
@@ -72,7 +77,7 @@ public class GenericProbabilisticForwardCATSAuctionBNE
 			items.add(i+1);													//Goods in the auction
 		
 		//3. Generate types of agents
-		List<Type> bids = new LinkedList<Type>();
+		List<Type> bids = new ArrayList<Type>();
 		for(int i = 0; i < numberOfBuyers; ++i)
 		{
 			List<Integer> bundle = new ArrayList<Integer>();
@@ -90,11 +95,27 @@ public class GenericProbabilisticForwardCATSAuctionBNE
 		generator.buildProximityGraph();
 		Graph grid = generator.getGrid();
 		
-		double primaryReductionCoef = 0.3;
-		double secondaryReductionCoef = 0.2;
+		double primaryReductionCoef = 0;
+		double secondaryReductionCoef = 0;
+		if( uncertaintyLevel.equals("low") )
+		{
+			primaryReductionCoef = 0.3;
+			secondaryReductionCoef = 0.2;
+		}
+		else if( uncertaintyLevel.equals("high") )
+		{
+			primaryReductionCoef = 0.6;
+			secondaryReductionCoef = 0.1;
+		}
+		else if( uncertaintyLevel.equals("no") )
+		{
+			primaryReductionCoef = 0;
+			secondaryReductionCoef = 0;
+		}
+		
 		JointProbabilityMass jpmf = new JointProbabilityMass( grid );
 		jpmf.setNumberOfSamples( numberOfJpmfSamples );
-		jpmf.setNumberOfBombsToThrow(1);
+		jpmf.setNumberOfBombsToThrow( uncertaintyLevel.equals("low") ? 5 : 7 );
 		
 		IBombingStrategy b = new FocusedBombingStrategy(grid, 1., primaryReductionCoef, secondaryReductionCoef);
 		List<IBombingStrategy> bombs = new ArrayList<IBombingStrategy>();
