@@ -27,13 +27,28 @@
     <Logger name="ch.uzh.ifi.Mechanisms.ECCCorePayments" level="ERROR" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
+    <Logger name="ch.uzh.ifi.Mechanisms.CorePayments" level="ERROR" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
     <Logger name="ch.uzh.ifi.Mechanisms.ECCorePayments" level="ERROR" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
-     <Logger name="ch.uzh.ifi.Mechanisms.ECCVCGPayments" level="ERROR" additivity="false">
+    <Logger name="ch.uzh.ifi.Mechanisms.ECCVCGPayments" level="ERROR" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
-     <Logger name="ch.uzh.ifi.MechanismDesignToolsNEW.UtilityEstimator" level="ERROR" additivity="false">
+    <Logger name="ch.uzh.ifi.MechanismDesignTools.UtilityEstimator" level="ERROR" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="ch.uzh.ifi.MechanismDesignToolsNEW.UtilityEstimator" level="ERROR" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="ch.uzh.ifi.MechanismDesignToolsNEW.PatternSearch1D" level="ERROR" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="ch.uzh.ifi.MechanismDesignToolsNEW.GenericUncertainForwardCATSAuction" level="ERROR" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="ch.uzh.ifi.DomainGenerators.SpatialDomainGenerator" level="ERROR" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
     <Root level="debug">
