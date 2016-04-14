@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import ch.uzh.ifi.DomainGenerators.DomainGeneratorLLG;
 import ch.uzh.ifi.MechanismDesignPrimitives.AtomicBid;
 import ch.uzh.ifi.MechanismDesignPrimitives.CombinatorialType;
@@ -16,8 +19,11 @@ import ch.uzh.ifi.Mechanisms.CAXOR;
 import ch.uzh.ifi.Mechanisms.CAXORFactory;
 import ch.uzh.ifi.Mechanisms.IMechanismFactory;
 
-public class GenericForwardLLGAuctionBNE {
+public class GenericForwardLLGAuctionBNE 
+{
 
+	private static final Logger _logger = LogManager.getLogger(GenericForwardLLGAuctionBNE.class);
+	
 	public static void main(String[] args) throws IloException 
 	{
 		int numberOfArguments = 8;

@@ -48,6 +48,12 @@
     <Logger name="ch.uzh.ifi.MechanismDesignToolsNEW.GenericUncertainForwardCATSAuction" level="ERROR" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
+    <Logger name="ch.uzh.ifi.MechanismDesignToolsNEW.GenericProbabilisticForwardCATSAuctionBNE" level="ERROR" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="ch.uzh.ifi.MechanismDesignToolsNEW.GenericForwardLLGAuctionBNE" level="ERROR" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
     <Logger name="ch.uzh.ifi.DomainGenerators.SpatialDomainGenerator" level="ERROR" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
