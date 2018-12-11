@@ -3,6 +3,7 @@ package ch.uzh.ifi.MechanismDesignToolsNEW;
 import ilog.concert.IloException;
 import ilog.cplex.IloCplex;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class GenericForwardLLGAuctionBNE
 		int numberOfItems = 2;
 
 		boolean isMultiplicativeShading = false;
-		List<Double> costsRange = new LinkedList<Double>();
+		List<Double> costsRange = new ArrayList<Double>();
 		costsRange.add(costsUpperBound);
 		costsRange.add(costsUpperBound);
 		System.out.println("Costs: " + costsRange.toString());
@@ -98,7 +99,7 @@ public class GenericForwardLLGAuctionBNE
 		settings.setNumberOfGridPoints(20);
 		settings.setNumberOfSamples(numberOfSamples);
 		settings.setNumberOfThreads(numberOfThreads);
-		settings.setEpsilon(1e-3);
+		settings.setEpsilon(1e-4);
 		
 		if( optimizationEngine.equals("deterministic"))
 			settings.setLocalOptimizerFactory(new PatternSearchFactory() );
