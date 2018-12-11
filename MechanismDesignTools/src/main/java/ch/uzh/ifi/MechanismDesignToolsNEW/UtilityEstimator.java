@@ -223,7 +223,7 @@ public class UtilityEstimator
 							{
 								int itsAllocatedBundle = G.getAllocation().getAllocatedBundlesOfTrade(k).get(bidderIdx);
 								reportedValue = _v.getAtom(itsAllocatedBundle).getValue();
-								trueAllocatedValue = _shavingStrategies[0].getUnShadedValue(reportedValue, _s[0], true);
+								trueAllocatedValue = _shavingStrategies[0].getUnShadedValue(reportedValue, _s[0], true);//TODO: min{s[0], val}
 								
 								if(G.getClass().getSimpleName().equals( ProbabilisticCAXOR.class.getSimpleName() ))
 								{
@@ -364,7 +364,7 @@ public class UtilityEstimator
 		
 		//Generate types and setup strategies
 		for(int j = 0; j < _agentsTypes.size(); ++j)
-		{			
+		{
 			Type ct = new CombinatorialType();
 			int itsBinIdx = -1;
 			
@@ -394,7 +394,8 @@ public class UtilityEstimator
 			
 			if(ct.getNumberOfAtoms() == 0)	_logger.warn("Empty bid");
 			else							_logger.debug("Generated type: " + ct.toString());
-			
+	
+//TODO: split it to two different methods
 			//3. Setup strategies for all agents
 			List<Double> shadingFactor = new ArrayList<Double>();
 			Type t = null;
