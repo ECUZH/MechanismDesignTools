@@ -99,8 +99,8 @@ public class AdditiveShavingStrategy implements ShavingStrategy
 	@Override
 	public double getShadedValue(double value, double shadingFactor, boolean isBuyer) throws ShavingException 
 	{
-		//if( ! isShadingValid(value, shadingFactor) )
-		//	//return 0.;
+		if( ! isShadingValid(value, shadingFactor) )
+			return 0.;
 		//	throw new ShavingException("The value " + value + " cannot be shaded by " + shadingFactor, value, shadingFactor);
 		if( isBuyer )
 			return Math.max(value - shadingFactor, 1e-6);
