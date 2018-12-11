@@ -36,7 +36,7 @@
     <Logger name="ch.uzh.ifi.Mechanisms.ECCVCGPayments" level="ERROR" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
-    <Logger name="ch.uzh.ifi.MechanismDesignTools.UtilityEstimator" level="ERROR" additivity="false">
+    <Logger name="ch.uzh.ifi.MechanismDesignTools.UtilityEstimator" level="DEBUG" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
     <Logger name="ch.uzh.ifi.MechanismDesignToolsNEW.UtilityEstimator" level="ERROR" additivity="false">
@@ -51,7 +51,7 @@
     <Logger name="ch.uzh.ifi.MechanismDesignToolsNEW.GenericProbabilisticForwardCATSAuctionBNE" level="ERROR" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
-    <Logger name="ch.uzh.ifi.MechanismDesignToolsNEW.GenericForwardLLGAuctionBNE" level="ERROR" additivity="false">
+    <Logger name="ch.uzh.ifi.MechanismDesignToolsNEW.GenericForwardLLGAuctionBNE" level="DEBUG" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
     <Logger name="ch.uzh.ifi.DomainGenerators.SpatialDomainGenerator" level="ERROR" additivity="false">
